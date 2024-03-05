@@ -5,5 +5,10 @@
 #include "cola.h"
 
 
+////////////////////
+////    Main    ////
+////////////////////
 
+int main( int argc, char **argv ){
 
+}
