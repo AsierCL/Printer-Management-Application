@@ -5,6 +5,13 @@
 
 #include "lista.h"
 #include "cola.h"
+#include "impresoras.h"
+
+//////////////////////////////////////////////
+//  Funcións en camelCase: funcionCrear     //
+//  Variables en snake_case: variable_crear //
+//////////////////////////////////////////////
+
 
 
 ////////////////////
@@ -12,8 +19,12 @@
 ////////////////////
 
 int main(int argc, char** argv){
+    
+    ///Declaro as variables globales
     char opcion;
+    TLISTA lista_impresoras;
 
+    // Haces lo que necesites con la lista aquí...
     /// BUCLE PARA A INTERFAZ GRÁFICA ///
     do{
         printf("\n--------------------------------------------------------------\n");

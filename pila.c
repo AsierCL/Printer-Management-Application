@@ -1,5 +1,5 @@
 #include <stdlib.h>
-
+#include <stdio.h>
 
 typedef int TELEMENTO ;	
 		/* tipo de datos correspondiente a los elementos de la pila */
@@ -14,7 +14,6 @@ void PilaVacia (TPILA *p)
 *p = NULL;	/*Valor NULO en un puntero, para indicar que la pila est� vac�a. */
 }
 
- 
 
 
 void Push(TPILA * p , TELEMENTO e)

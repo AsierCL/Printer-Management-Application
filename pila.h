@@ -1,3 +1,5 @@
+#ifndef PILA_H
+#define PILA_H
 
 
 typedef int TELEMENTO ;	
@@ -14,3 +16,4 @@ int EsVacia (TPILA  p );
 void Cima (TPILA  p, TELEMENTO * pe);
 void Pop(TPILA * p);
 
+#endif // PILA_H

@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /** Definicion del tipo de elemento almacenado en la lista **/
 
