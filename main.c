@@ -25,6 +25,8 @@ int main(int argc, char** argv){
     TLISTA Lista_impresoras;
     crearLista(&Lista_impresoras);
     TIPOELEMENTOLISTA Impresora1;
+    Impresora1->Numero_prueba=1;
+    insertarElementoLista(&Lista_impresoras, primeroLista, Impresora1);
     
 
     /// BUCLE PARA A INTERFAZ GRÁFICA ///

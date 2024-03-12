@@ -1,8 +1,9 @@
 #ifndef LISTA_H
 #define LISTA_H
+#include "estructura.h"
 
 /** Definicion del tipo de elemento almacenado en la lista **/
-typedef void *TIPOELEMENTOLISTA;
+typedef Impresora *TIPOELEMENTOLISTA;
 
 ///////////////////////////////////////////////////
 

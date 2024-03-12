@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "impresoras.h"
+#include "estructura.h"
 ///////////////////////////////////////////////////
 typedef Impresora *TIPOELEMENTOLISTA;
 /** Estructura para un nodo de la lista **/
