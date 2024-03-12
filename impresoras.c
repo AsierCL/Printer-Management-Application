@@ -2,6 +2,4 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "lista.h"
-#include "cola.h"
 

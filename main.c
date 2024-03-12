@@ -22,9 +22,11 @@ int main(int argc, char** argv){
     
     ///Declaro as variables globales
     char opcion;
-    TLISTA lista_impresoras;
+    TLISTA Lista_impresoras;
+    crearLista(&Lista_impresoras);
+    TIPOELEMENTOLISTA Impresora1;
+    
 
-    // Haces lo que necesites con la lista aquí...
     /// BUCLE PARA A INTERFAZ GRÁFICA ///
     do{
         printf("\n--------------------------------------------------------------\n");
