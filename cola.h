@@ -2,8 +2,6 @@
 #define COLA_H
 
 
-
-
 /** Definicion del tipo de elemento almacenado en la cola **/
 typedef int TIPOELEMENTOCOLA;
 

@@ -3,7 +3,7 @@
 #include "estructura.h"
 
 /** Definicion del tipo de elemento almacenado en la lista **/
-typedef Impresora *TIPOELEMENTOLISTA;
+typedef Impresora TIPOELEMENTOLISTA;
 
 ///////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@ typedef void *TPOSICION;
 /** Estructura para la lista **/
 typedef void *TLISTA;
 
-/**
+/**#include "impresoras_tipos.h"
  * Reserva memoria para una lista de datos con el tipo [TIPOELEMENTOLISTA].
  *
  * @param q puntero a la lista a crear.

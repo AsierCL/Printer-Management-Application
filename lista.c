@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include "estructura.h"
 ///////////////////////////////////////////////////
-typedef Impresora *TIPOELEMENTOLISTA;
+
+typedef Impresora TIPOELEMENTOLISTA;
+
 /** Estructura para un nodo de la lista **/
 typedef struct nodoLista {
     TIPOELEMENTOLISTA elemento;

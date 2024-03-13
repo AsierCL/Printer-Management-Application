@@ -22,12 +22,27 @@ int main(int argc, char** argv){
     
     ///Declaro as variables globales
     char opcion;
+    
+    
+    ///////////////////////////////////////////
+    ///        Comprobacions varias         ///
     TLISTA Lista_impresoras;
     crearLista(&Lista_impresoras);
-    TIPOELEMENTOLISTA Impresora1;
-    Impresora1->Numero_prueba=1;
-    insertarElementoLista(&Lista_impresoras, primeroLista, Impresora1);
+    TIPOELEMENTOLISTA Printer1;
+    TIPOELEMENTOLISTA Printer2;
+    TIPOELEMENTOLISTA Printer3;
     
+    Printer1.Numero_prueba = 4;
+    Printer2.Numero_prueba = 6;
+
+    insertarElementoLista(&Lista_impresoras, primeroLista(Lista_impresoras), Printer1);
+    insertarElementoLista(&Lista_impresoras, siguienteLista(Lista_impresoras, primeroLista(Lista_impresoras)), Printer2);
+    recuperarElementoLista(Lista_impresoras, primeroLista(Lista_impresoras), &Printer3);
+    printf("%d", esListaVacia(Lista_impresoras));
+    printf("%d",Printer3.Numero_prueba);
+    ///        Comprobacions varias         ///
+    ///////////////////////////////////////////
+
 
     /// BUCLE PARA A INTERFAZ GRÁFICA ///
     do{
