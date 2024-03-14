@@ -20,37 +20,19 @@
 
 int main(int argc, char** argv){
     
-    ///Declaro as variables globales
+    // Declaro as variables globales
     char opcion;
-    
-    
-    ///////////////////////////////////////////
-    ///        Comprobacions varias         ///
-    TLISTA Lista_impresoras;
-    crearLista(&Lista_impresoras);
-    TIPOELEMENTOLISTA Printer1;
-    TIPOELEMENTOLISTA Printer2;
-    TIPOELEMENTOLISTA Printer3;
-    
-    Printer1.Numero_prueba = 4;
-    Printer2.Numero_prueba = 6;
+    TLISTA lista_impresoras;
+    crearLista(&lista_impresoras);
+    leerArquivo(argv[1], &lista_impresoras);
 
-    insertarElementoLista(&Lista_impresoras, primeroLista(Lista_impresoras), Printer1);
-    insertarElementoLista(&Lista_impresoras, siguienteLista(Lista_impresoras, primeroLista(Lista_impresoras)), Printer2);
-    recuperarElementoLista(Lista_impresoras, primeroLista(Lista_impresoras), &Printer3);
-    printf("%d", esListaVacia(Lista_impresoras));
-    printf("%d",Printer3.Numero_prueba);
-    ///        Comprobacions varias         ///
-    ///////////////////////////////////////////
-
-
-    /// BUCLE PARA A INTERFAZ GRÁFICA ///
+    // BUCLE PARA A INTERFAZ GRÁFICA //
     do{
         printf("\n--------------------------------------------------------------\n");
         printf("\na) Eliminar impresora     d) Cola de impresión\n");
         printf("\nb) Añadir impresora       e) Imprimir programa\n");
         printf("\nc) Enviar traballo        f) Buscar impresoras con pouca carga\n ");
-        printf("\ns) Sair\n");
+        printf("\ng) Ayuda                  s) Sair\n");
         printf("\n--------------------------------------------------------------\n");
         printf("\nOpcion: ");
         scanf(" %c", &opcion);
@@ -88,10 +70,14 @@ int main(int argc, char** argv){
 
                 break;
 
+            case 'g':
+
+
+                break;
 
             case 's':
                 printf("Saliendo del programa...\n");
-
+                escribirArquivo(argv[1], lista_impresoras);
 
                 break;
 
