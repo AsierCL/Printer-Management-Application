@@ -8,26 +8,25 @@
 #include "estructura.h"
 
 
-void barraDeProgreso(int porcentaje) {
-    const int longitudBarra = 50; // Longitud total de la barra de progreso
-    int caracteresParaMostrar = porcentaje * longitudBarra / 100; // Número de caracteres a mostrar
+void barraDeProgreso(int porcentaxe) {
+    const int lonxitudeBarra = 50; // Lonx total da barra de progreso
+    int caracteresParaMostrar = porcentaxe * lonxitudeBarra / 100; // Num de caracteres
 
-    printf("["); // Imprimir el inicio de la barra de progreso
-    for (int i = 0; i < longitudBarra; ++i) {
+    printf("["); // Print do inicio da barra
+    for (int i = 0; i < lonxitudeBarra; ++i) {
         if (i < caracteresParaMostrar)
-            printf("="); // Mostrar parte de la barra completada
+            printf("="); // Parte completada
         else
-            printf(" "); // Mostrar parte de la barra restante
+            printf(" "); // Parte sin completar
     }
-    printf("] %d%%\r", porcentaje); // Mostrar el porcentaje y regresar al inicio de la línea
-    fflush(stdout); // Limpiar el búfer de salida para imprimir inmediatamente
+    printf("] %d%%\r", porcentaxe); // Print final da barra
+    fflush(stdout); // Limpa o buffer de salida para escribir o seguinte porcentaxe da barra
 }
 
 void mostrarBarra(){
     for (int i = 0; i <= 100; ++i) {
-        barraDeProgreso(i); // Mostrar la barra de progreso con el porcentaje actual
-        // Simulación de algún trabajo
-        usleep(10000); // Pausa de 1 segundo
+        barraDeProgreso(i); // Funcion debuxar barra
+        usleep(10000); // Pausa en microsegundos (1/1,000,000 segundos)
         if(i>100)exit(1);
     }
     printf("\n"); 
@@ -39,6 +38,8 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
 
     // Abro o arquivo
     FILE *arquivo_impresoras = fopen(nombre_arquivo, "r");
+    
+    // Fago un bucle infinito, e pároo cando no fscanf se chegue a EOF
     while(1){
         TIPOELEMENTOLISTA impresora_aux;
         int i = 0;
@@ -53,8 +54,8 @@ void escribirArquivo(char* nombre_arquivo, TLISTA* lista_impresoras){
     
     // Abro o arquivo
     FILE *arquivo_impresoras = fopen(nombre_arquivo, "w");
-    
     TPOSICION posicion_aux = primeroLista(lista_impresoras);
+
     while (siguienteLista(lista_impresoras, posicion_aux) != NULL){
         TIPOELEMENTOLISTA impresora_aux;
         recuperarElementoLista(lista_impresoras, posicion_aux, &impresora_aux);
@@ -64,6 +65,7 @@ void escribirArquivo(char* nombre_arquivo, TLISTA* lista_impresoras){
 }
 
 void printearLista(TLISTA lista_impresoras){
+    // Empezo dende o primeiro elemento, e vou printeando e pasando ao seguinte ca función do TAD ata que chegue a NULL
     TPOSICION posicion_aux = primeroLista(lista_impresoras);
     while (siguienteLista(lista_impresoras, posicion_aux) != NULL){
         TIPOELEMENTOLISTA impresora_aux;

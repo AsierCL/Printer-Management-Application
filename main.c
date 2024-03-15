@@ -20,6 +20,14 @@
 
 int main(int argc, char** argv){
     
+    // Gestión de error en caso de non incluir un archivo txt de impresoras.
+    if (argc!=2){
+        printf("\nDebes indicar un archivo de impresoras\n");
+        printf("\nEjemplo de uso: ./programa archivo.txt\n");
+        printf("\nSalindo...\n");
+        exit(1);
+    }
+
     // Declaro as variables globales
     char opcion;
     TLISTA lista_impresoras;
@@ -34,7 +42,7 @@ int main(int argc, char** argv){
         printf("\nc) Enviar traballo        f) Buscar impresoras con pouca carga\n ");
         printf("\ng) Ayuda                  s) Sair\n");
         printf("\n--------------------------------------------------------------\n");
-        printf("\nOpcion: ");
+        printf("\nOpción: ");
         scanf(" %c", &opcion);
         
         ///system("clear");
@@ -76,15 +84,15 @@ int main(int argc, char** argv){
                 break;
 
             case 's':
-                printf("Guardando los datos...\n");
+                printf("Gardando os datos...\n");
                 escribirArquivo(argv[1], lista_impresoras);
                 mostrarBarra();
-                printf("\nSaliendo del programa...\n");
+                printf("\nSalindo do programa...\n");
 
                 break;
 
             default:
-                printf("La opción es incorrecta");
+                printf("\n A opción é incorrecta \n");
                 break;
         }
     } while (opcion != 's');
