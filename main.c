@@ -76,8 +76,10 @@ int main(int argc, char** argv){
                 break;
 
             case 's':
-                printf("Saliendo del programa...\n");
+                printf("Guardando los datos...\n");
                 escribirArquivo(argv[1], lista_impresoras);
+                mostrarBarra();
+                printf("\nSaliendo del programa...\n");
 
                 break;
 

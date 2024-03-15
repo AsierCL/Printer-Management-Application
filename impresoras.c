@@ -1,27 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h> // Para a función sleep
+
 #include "cola.h"
 #include "lista.h"
-
 #include "estructura.h"
 
 
-// Proceso e almaceno cada liña (impresora) nun TIPOELEMENTOLISTA
-void leerImpresora(char *linea, TIPOELEMENTOLISTA* impresora) {
-    // Divídese a liña en tokens
-    char *token = strtok(linea, " ");
+void barraDeProgreso(int porcentaje) {
+    const int longitudBarra = 50; // Longitud total de la barra de progreso
+    int caracteresParaMostrar = porcentaje * longitudBarra / 100; // Número de caracteres a mostrar
 
+    printf("["); // Imprimir el inicio de la barra de progreso
+    for (int i = 0; i < longitudBarra; ++i) {
+        if (i < caracteresParaMostrar)
+            printf("="); // Mostrar parte de la barra completada
+        else
+            printf(" "); // Mostrar parte de la barra restante
+    }
+    printf("] %d%%\r", porcentaje); // Mostrar el porcentaje y regresar al inicio de la línea
+    fflush(stdout); // Limpiar el búfer de salida para imprimir inmediatamente
+}
 
-    // Asigno cada token ao seu campo
-    strcpy(impresora->nombre, token);
-    token = strtok(NULL, " ");
-    strcpy(impresora->marca, token);
-    token = strtok(NULL, " ");
-    strcpy(impresora->modelo, token);
-    token = strtok(NULL, " ");
-    strcpy(impresora->ubicacion, token);
-
+void mostrarBarra(){
+    for (int i = 0; i <= 100; ++i) {
+        barraDeProgreso(i); // Mostrar la barra de progreso con el porcentaje actual
+        // Simulación de algún trabajo
+        usleep(10000); // Pausa de 1 segundo
+        if(i>100)exit(1);
+    }
+    printf("\n"); 
 }
 
 
@@ -30,70 +39,36 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
 
     // Abro o arquivo
     FILE *arquivo_impresoras = fopen(nombre_arquivo, "r");
-
-    //Check
-    if (arquivo_impresoras == NULL) {
-        perror("Error ao abrir o archivo de entrada");
-        exit(1);
+    while(1){
+        TIPOELEMENTOLISTA impresora_aux;
+        int i = 0;
+        i = fscanf(arquivo_impresoras, "%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+        if (i==EOF) return;
+        insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
     }
-
-    // Declaro todas as variables que vou usar na función
-    char linea[128];
-    TIPOELEMENTOLISTA impresora_aux;
-    TPOSICION posicion_aux;
-    posicion_aux = primeroLista(lista_impresoras);
-    TIPOELEMENTOLISTA impresora_prueba;
-    
-    // Para a primeira estructura
-    fgets(linea, sizeof(linea), arquivo_impresoras);
-    leerImpresora(linea, &impresora_aux);
-    modificarElementoLista(&lista_impresoras, posicion_aux,impresora_aux);
-
-    // Leer linea x linea do archivo
-    while (fgets(linea, sizeof(linea), arquivo_impresoras) != NULL) {
-        printf("%s \n",linea);
-        leerImpresora(linea, &impresora_aux);
-        insertarElementoLista(lista_impresoras, posicion_aux, impresora_aux);
-        recuperarElementoLista(lista_impresoras, posicion_aux, &impresora_prueba);
-        printf("%s", impresora_prueba.nombre);
-        posicion_aux = siguienteLista(lista_impresoras,posicion_aux);
-    }
-
-    // Libero memoria e cerro archivos
-    free (posicion_aux);
-    fclose(arquivo_impresoras);
 }
 
-void escribirArquivo(char *nombre_arquivo, TLISTA lista_impresoras){
 
+void escribirArquivo(char* nombre_arquivo, TLISTA* lista_impresoras){
+    
     // Abro o arquivo
-    FILE *arquivo_impresoras = fopen("archivo_escritura.txt", "w");
-
-    //Check
-    if (arquivo_impresoras == NULL) {
-        perror("Error ao abrir o archivo de saida");
-        exit(1);
-    }
-
-    // Declaro todas as variables que vou usar na función
-    TIPOELEMENTOLISTA impresora_aux;
-    TPOSICION posicion_aux;
-    posicion_aux = primeroLista(lista_impresoras);
-    int indice;
-
-    for(indice = 0; indice < 18; indice++){
+    FILE *arquivo_impresoras = fopen(nombre_arquivo, "w");
+    
+    TPOSICION posicion_aux = primeroLista(lista_impresoras);
+    while (siguienteLista(lista_impresoras, posicion_aux) != NULL){
+        TIPOELEMENTOLISTA impresora_aux;
         recuperarElementoLista(lista_impresoras, posicion_aux, &impresora_aux);
-        fprintf(arquivo_impresoras, "%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
-        posicion_aux = siguienteLista(lista_impresoras,posicion_aux);
+        fprintf(arquivo_impresoras,"%s %s %s %s\n", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+        posicion_aux = siguienteLista(lista_impresoras, posicion_aux);
     }
+}
 
-/*     while(siguienteLista(lista_impresoras,posicion_aux)!=NULL){
+void printearLista(TLISTA lista_impresoras){
+    TPOSICION posicion_aux = primeroLista(lista_impresoras);
+    while (siguienteLista(lista_impresoras, posicion_aux) != NULL){
+        TIPOELEMENTOLISTA impresora_aux;
         recuperarElementoLista(lista_impresoras, posicion_aux, &impresora_aux);
-        fprintf(arquivo_impresoras, "%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
-        posicion_aux = siguienteLista(lista_impresoras,posicion_aux);
-    } */
-
-    // Libero memoria e cerro archivos
-    free (posicion_aux);
-    fclose(arquivo_impresoras);
+        printf("%s %s %s %s\n", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+        posicion_aux = siguienteLista(lista_impresoras, posicion_aux);
+    }
 }
