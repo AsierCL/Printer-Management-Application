@@ -74,3 +74,38 @@ void printearLista(TLISTA lista_impresoras){
         posicion_aux = siguienteLista(lista_impresoras, posicion_aux);
     }
 }
+
+
+void eliminarImpresora(TLISTA* lista_impresoras){
+    // Declaro as variables necesarias
+    char impresora_eliminar[32];
+    TPOSICION posicion_elimiar;
+    TIPOELEMENTOLISTA impresora_aux;
+    int check = 0;
+    posicion_elimiar = primeroLista(*lista_impresoras);
+    recuperarElementoLista(lista_impresoras, posicion_elimiar, &impresora_aux);
+
+    scanf(" %s",impresora_eliminar);
+
+    while ((siguienteLista(lista_impresoras, posicion_elimiar) != NULL) && (check == 0)){
+        recuperarElementoLista(lista_impresoras, posicion_elimiar, &impresora_aux);
+        
+        if(strcmp(impresora_aux.nombre, impresora_eliminar) == 0){
+            check = 1;
+            suprimirElementoLista(lista_impresoras, posicion_elimiar);
+            return;
+        }
+        else{
+            posicion_elimiar = siguienteLista(lista_impresoras, posicion_elimiar);
+        }
+    }
+    printf("Non se atopou a impresora %s",impresora_eliminar);
+    sleep(1);
+}
+
+void añadirImpresora(TLISTA* lista_impresoras){
+    TIPOELEMENTOLISTA impresora_aux;
+    printf("Introduce a nova impresora (nombre|marca|modelo|ubicación):\n");
+    scanf("%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+    insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
+}

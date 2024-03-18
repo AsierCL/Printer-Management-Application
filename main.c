@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "lista.h"
 #include "cola.h"
@@ -38,24 +39,38 @@ int main(int argc, char** argv){
     do{
         printf("\n--------------------------------------------------------------\n");
         printf("\na) Eliminar impresora     d) Cola de impresión\n");
-        printf("\nb) Añadir impresora       e) Imprimir programa\n");
+        printf("\nb) Añadir impresora       e) Imprimir traballo\n");
         printf("\nc) Enviar traballo        f) Buscar impresoras con pouca carga\n ");
+        printf("\n");
         printf("\ng) Ayuda                  s) Sair\n");
         printf("\n--------------------------------------------------------------\n");
         printf("\nOpción: ");
         scanf(" %c", &opcion);
         
-        ///system("clear");
         
         switch (opcion) {
             case 'a': 
-                printf("\na) Eliminar impresora\n");
-
+                system("clear");
+                printf("-------------------------");
+                printf("\n| a) Eliminar impresora |\n");
+                printf("-------------------------");
+                printf("\n\nEscriba a impresora que queere eliminar:\n");
+                printf("(Únicamente escriba o nome (primera columna))\n\n");
+                fflush(stdout);
+                sleep(1);
+                printearLista(lista_impresoras);
+                eliminarImpresora(&lista_impresoras);
+                system("clear");
                 break;
 
             case 'b':
-
-
+                system("clear");
+                printf("-------------------------");
+                printf("\n| a) Añadir impresora |\n");
+                printf("-------------------------\n");
+                añadirImpresora(&lista_impresoras);
+                printf("\nLista actualizada:\n");
+                printearLista(lista_impresoras);
                 break;
 
             case 'c':
@@ -88,7 +103,6 @@ int main(int argc, char** argv){
                 escribirArquivo(argv[1], lista_impresoras);
                 mostrarBarra();
                 printf("\nSalindo do programa...\n");
-
                 break;
 
             default:
