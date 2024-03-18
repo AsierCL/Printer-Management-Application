@@ -39,10 +39,10 @@ int main(int argc, char** argv){
     do{
         printf("\n--------------------------------------------------------------\n");
         printf("\na) Eliminar impresora     d) Cola de impresión\n");
-        printf("\nb) Añadir impresora       e) Imprimir traballo\n");
+        printf("\nb) Engadir impresora      e) Imprimir traballo\n");
         printf("\nc) Enviar traballo        f) Buscar impresoras con pouca carga\n ");
         printf("\n");
-        printf("\ng) Ayuda                  s) Sair\n");
+        printf("\ng) Axuda                  s) Sair\n");
         printf("\n--------------------------------------------------------------\n");
         printf("\nOpción: ");
         scanf(" %c", &opcion);
@@ -54,28 +54,24 @@ int main(int argc, char** argv){
                 printf("-------------------------");
                 printf("\n| a) Eliminar impresora |\n");
                 printf("-------------------------");
-                printf("\n\nEscriba a impresora que queere eliminar:\n");
-                printf("(Únicamente escriba o nome (primera columna))\n\n");
-                fflush(stdout);
-                sleep(1);
-                printearLista(lista_impresoras);
                 eliminarImpresora(&lista_impresoras);
                 system("clear");
                 break;
 
             case 'b':
                 system("clear");
-                printf("-------------------------");
-                printf("\n| a) Añadir impresora |\n");
-                printf("-------------------------\n");
-                añadirImpresora(&lista_impresoras);
-                printf("\nLista actualizada:\n");
-                printearLista(lista_impresoras);
+                printf("-----------------------");
+                printf("\n| b) Engadir impresora |\n");
+                printf("-----------------------\n");
+                engadirImpresora(&lista_impresoras);
                 break;
 
             case 'c':
-
-
+                system("clear");
+                printf("----------------------");
+                printf("\n| c) Enviar traballo |\n");
+                printf("----------------------\n");
+                engadirCola(&lista_impresoras);
                 break;
 
             case 'd':
@@ -94,8 +90,11 @@ int main(int argc, char** argv){
                 break;
 
             case 'g':
-
-
+                system("clear");
+                printf("------------");
+                printf("\n| g) Axuda |\n");
+                printf("------------\n");
+                mostrarAxuda();
                 break;
 
             case 's':

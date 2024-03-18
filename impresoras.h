@@ -11,6 +11,8 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras);
 void escribirArquivo(char* nombre_arquivo, TLISTA lista_impresoras);
 void printearLista(TLISTA lista_impresoras);
 void eliminarImpresora(TLISTA* lista_impresoras);
-void añadirImpresora(TLISTA* lista_impresoras);
+void engadirImpresora(TLISTA* lista_impresoras);
+void engadirCola(TLISTA* lista_impresoras);
+void mostrarAxuda();
 
 #endif /// IMPRESORAS_H
