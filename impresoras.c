@@ -73,6 +73,7 @@ void escribirArquivo(char* nombre_arquivo, TLISTA* lista_impresoras){
     }
 }
 
+
 void printearLista(TLISTA lista_impresoras){
     // Empezo dende o primeiro elemento, e vou printeando e pasando ao seguinte ca función do TAD ata que chegue a NULL
     TPOSICION posicion_aux = primeroLista(lista_impresoras);
@@ -86,6 +87,7 @@ void printearLista(TLISTA lista_impresoras){
 
 
 void eliminarImpresora(TLISTA* lista_impresoras){
+    
     // Declaro as variables necesarias
     char impresora_eliminar[32];
     TPOSICION posicion_elimiar;
@@ -94,12 +96,13 @@ void eliminarImpresora(TLISTA* lista_impresoras){
     posicion_elimiar = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_elimiar, &impresora_aux);
 
-
+    // Salida por pantalla
     printf("\n\nEscriba a impresora que queere eliminar:\n");
     printf("(Únicamente escriba o nome (primera columna))\n\n");
     printearLista(*lista_impresoras);
     printf("\n");
     scanf(" %s",impresora_eliminar);
+
 
     while ((siguienteLista(lista_impresoras, posicion_elimiar) != NULL) && (check == 0)){
         recuperarElementoLista(lista_impresoras, posicion_elimiar, &impresora_aux);
@@ -116,13 +119,17 @@ void eliminarImpresora(TLISTA* lista_impresoras){
         }
     }
 
+    // Caso error
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",impresora_eliminar);
     sleep(2);
 }
 
 void engadirImpresora(TLISTA* lista_impresoras){
+    
+    // Declaro as variables necesarias
     TIPOELEMENTOLISTA impresora_aux;
     crearCola(&impresora_aux.cola_impresion);
+    
     printf("Introduce a nova impresora (nombre|marca|modelo|ubicación):\n");
     scanf("%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
     insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
@@ -143,9 +150,12 @@ void engadirCola(TLISTA* lista_impresoras){
     posicion_impresora_modificada = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
 
+    // Salida por terminal
     printearLista(*lista_impresoras);
     printf("Introduce o nome da impresora a que se lle quere engadir traballo:\n");
     scanf(" %s",impresora_modificada);
+
+    // Comprobo unha por unha que coincida
     while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL) && (check == 0)){
         recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
         
@@ -161,6 +171,7 @@ void engadirCola(TLISTA* lista_impresoras){
             posicion_impresora_modificada = siguienteLista(lista_impresoras, posicion_impresora_modificada);
         }
     }
+
     // Non atopa a impresora
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",impresora_modificada);
     sleep(2);
@@ -183,6 +194,8 @@ void imprimirCola(TCOLA* cola_impresion){
 }
 
 void imprimirTraballosPendentes(TLISTA* lista_impresoras){
+    
+    // Declaro as variables necesarias
     char nombre_impresora_aux[32];
     TPOSICION posicion_impresora_aux;
     TIPOELEMENTOLISTA impresora_aux;
@@ -214,7 +227,7 @@ void imprimirTraballosPendentes(TLISTA* lista_impresoras){
     sleep(2);
 }
 
-
+// Menu de axuda
 void mostrarAxuda(){
     printf("\na) Eliminar impresora: Elimina unha impresora da lista de impresoras dispoñibles.\n");
     printf("\nb) Engadir impresora: Engade unha impresora á lista de impresoras dispoñibles.\n");

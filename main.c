@@ -82,6 +82,7 @@ int main(int argc, char** argv){
                 printf("\n| d) Traballos pendentes |\n");
                 printf("--------------------------\n");
                 imprimirTraballosPendentes(&lista_impresoras);
+                system("clear");
                 break;
 
             case 'e':
