@@ -155,8 +155,6 @@ void engadirCola(TLISTA* lista_impresoras){
             printf("\nIntroduce o id do traballo que queres engadir:\n");
             scanf("%d",&id);
             anadirElementoCola(&impresora_aux.cola_impresion, id);
-            printf("El tamaño de la cola es %d",tamanoCola(impresora_aux.cola_impresion));
-            fflush(stdout);
             return;
         }
         else{
@@ -171,10 +169,14 @@ void engadirCola(TLISTA* lista_impresoras){
 
 
 void imprimirCola(TCOLA* cola_impresion){
+    if (tamanoCola(*cola_impresion)==0){
+        printf("\nNon hai traballos pendentes\n");
+    }
+    
     for(int i=0;i<tamanoCola(*cola_impresion);i++){
         TIPOELEMENTOCOLA elemento_aux;
         consultarPrimerElementoCola(*cola_impresion, &elemento_aux);
-        printf("El id del elemento %d es: %d\n", i+1, elemento_aux);
+        printf("\nO id do elemento %d é: %d\n", i+1, elemento_aux);
         suprimirElementoCola(cola_impresion);
         anadirElementoCola(cola_impresion, elemento_aux);
     }
@@ -184,7 +186,6 @@ void imprimirTraballosPendentes(TLISTA* lista_impresoras){
     char nombre_impresora_aux[32];
     TPOSICION posicion_impresora_aux;
     TIPOELEMENTOLISTA impresora_aux;
-    TIPOELEMENTOCOLA id;
     int check = 0;
     posicion_impresora_aux = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
@@ -201,6 +202,7 @@ void imprimirTraballosPendentes(TLISTA* lista_impresoras){
             check = 1;
             imprimirCola(&impresora_aux.cola_impresion);
             fflush(stdout);
+            sleep(2);
             return;
         }
         else{
@@ -210,7 +212,6 @@ void imprimirTraballosPendentes(TLISTA* lista_impresoras){
     // Non atopa a impresora
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",posicion_impresora_aux);
     sleep(2);
-
 }
 
 
