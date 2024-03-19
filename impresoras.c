@@ -121,6 +121,7 @@ void eliminarImpresora(TLISTA* lista_impresoras){
 
 void engadirImpresora(TLISTA* lista_impresoras){
     TIPOELEMENTOLISTA impresora_aux;
+    crearCola(&impresora_aux.cola_impresion);
     printf("Introduce a nova impresora (nombre|marca|modelo|ubicación):\n");
     scanf("%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
     insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
@@ -150,9 +151,6 @@ void engadirCola(TLISTA* lista_impresoras){
         // Se atopa a impresora:
         if(strcmp(impresora_aux.nombre, impresora_modificada) == 0){
             check = 1;
-            if(impresora_aux.cola_impresion == NULL) {
-                crearCola(&impresora_aux.cola_impresion);
-            }
             printf("\nIntroduce o id do traballo que queres engadir:\n");
             scanf("%d",&id);
             anadirElementoCola(&impresora_aux.cola_impresion, id);
@@ -167,10 +165,6 @@ void engadirCola(TLISTA* lista_impresoras){
     sleep(2);
 }
 
-
-/* int tamanoCola(TCOLA cola_impresion){
-    return cola_impresion.tamano;
-} */
 
 
 void imprimirCola(TCOLA* cola_impresion){
