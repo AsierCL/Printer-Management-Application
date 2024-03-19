@@ -16,6 +16,7 @@ typedef struct nodoCola {
 typedef struct {
     STNODOCOLA *principio;
     STNODOCOLA *final;
+    int tamano;
 } STCOLA;
 typedef STCOLA *TCOLA;
 
@@ -29,6 +30,7 @@ void crearCola(TCOLA *q) {
     *q = (TCOLA) malloc(sizeof(STCOLA));
     (*q)->final = NULL;
     (*q)->principio = NULL;
+    (*q)->tamano=0;
 }
 
 /**
@@ -73,6 +75,7 @@ void suprimirElementoCola(TCOLA *q) {
         }
         free(aux);
     }
+    (*q)->tamano--;
 }
 
 /**
@@ -94,6 +97,7 @@ void anadirElementoCola(TCOLA *q, TIPOELEMENTOCOLA e) {
         (*q)->final->sig = aux;
     }
     (*q)->final = aux;
+    (*q)->tamano++;
 }
 
 /**

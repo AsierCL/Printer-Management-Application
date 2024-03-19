@@ -38,7 +38,7 @@ int main(int argc, char** argv){
     // BUCLE PARA A INTERFAZ GRÁFICA //
     do{
         printf("\n--------------------------------------------------------------\n");
-        printf("\na) Eliminar impresora     d) Cola de impresión\n");
+        printf("\na) Eliminar impresora     d) Traballos pendentes\n");
         printf("\nb) Engadir impresora      e) Imprimir traballo\n");
         printf("\nc) Enviar traballo        f) Buscar impresoras con pouca carga\n ");
         printf("\n");
@@ -64,6 +64,7 @@ int main(int argc, char** argv){
                 printf("\n| b) Engadir impresora |\n");
                 printf("-----------------------\n");
                 engadirImpresora(&lista_impresoras);
+                system("clear");
                 break;
 
             case 'c':
@@ -72,10 +73,15 @@ int main(int argc, char** argv){
                 printf("\n| c) Enviar traballo |\n");
                 printf("----------------------\n");
                 engadirCola(&lista_impresoras);
+                system("clear");
                 break;
 
             case 'd':
-
+                system("clear");
+                printf("--------------------------");
+                printf("\n| d) Traballos pendentes |\n");
+                printf("--------------------------\n");
+                //imprimirCola(lista_impresoras);
 
                 break;
 

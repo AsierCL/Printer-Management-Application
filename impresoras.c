@@ -127,13 +127,16 @@ void engadirImpresora(TLISTA* lista_impresoras){
 
     printf("\nLista actualizada:\n");
     printearLista(*lista_impresoras);
+    sleep(2);
 }
 
 void engadirCola(TLISTA* lista_impresoras){
+    
     // Declaro as variables necesarias
     char impresora_modificada[32];
     TPOSICION posicion_impresora_modificada;
     TIPOELEMENTOLISTA impresora_aux;
+    TIPOELEMENTOCOLA id;
     int check = 0;
     posicion_impresora_modificada = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
@@ -141,22 +144,46 @@ void engadirCola(TLISTA* lista_impresoras){
     printearLista(*lista_impresoras);
     printf("Introduce o nome da impresora a que se lle quere engadir traballo:\n");
     scanf(" %s",impresora_modificada);
-
     while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL) && (check == 0)){
         recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
         
+        // Se atopa a impresora:
         if(strcmp(impresora_aux.nombre, impresora_modificada) == 0){
             check = 1;
-            suprimirElementoLista(lista_impresoras, posicion_impresora_modificada);
+            if(impresora_aux.cola_impresion == NULL) {
+                crearCola(&impresora_aux.cola_impresion);
+            }
+            printf("\nIntroduce o id do traballo que queres engadir:\n");
+            scanf("%d",&id);
+            anadirElementoCola(&impresora_aux.cola_impresion, id);
             return;
         }
         else{
             posicion_impresora_modificada = siguienteLista(lista_impresoras, posicion_impresora_modificada);
         }
     }
+    // Non atopa a impresora
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",impresora_modificada);
     sleep(2);
 }
+
+
+/* int tamanoCola(TCOLA cola_impresion){
+    return cola_impresion.tamano;
+} */
+
+
+void imprimirCola(TCOLA* cola_impresion){
+    TCOLA aux;
+    crearCola(&aux);
+    aux = cola_impresion;
+    TIPOELEMENTOCOLA elemento_aux;
+
+    while (esColaVacia(*cola_impresion)==0){
+        consultarPrimerElementoCola(*cola_impresion, &elemento_aux);
+    }
+}
+
 
 
 

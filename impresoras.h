@@ -13,6 +13,7 @@ void printearLista(TLISTA lista_impresoras);
 void eliminarImpresora(TLISTA* lista_impresoras);
 void engadirImpresora(TLISTA* lista_impresoras);
 void engadirCola(TLISTA* lista_impresoras);
+void imprimirCola(TCOLA* cola_impresion);
 void mostrarAxuda();
 
 #endif /// IMPRESORAS_H
