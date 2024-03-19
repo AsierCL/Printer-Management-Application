@@ -74,8 +74,8 @@ void suprimirElementoCola(TCOLA *q) {
             (*q)->final = NULL;
         }
         free(aux);
-    }
     (*q)->tamano--;
+    }
 }
 
 /**
@@ -110,4 +110,13 @@ void destruirCola(TCOLA *q) {
         suprimirElementoCola(q); //elimino el primer elemento de la cola
     }
     free(*q); //libero la variable TCOLA
+}
+
+/**
+ * Devuelve el tamano de una cola[q], retornando el campo int.
+ *
+ * @param q cola de la que se da el tamano.
+ */
+int tamanoCola(TCOLA q) {
+    return (q)->tamano;
 }

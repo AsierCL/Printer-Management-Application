@@ -50,6 +50,7 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
     // Fago un bucle infinito, e pároo cando no fscanf se chegue a EOF
     while(1){
         TIPOELEMENTOLISTA impresora_aux;
+        crearCola(&impresora_aux.cola_impresion);
         int i = 0;
         i = fscanf(arquivo_impresoras, "%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
         if (i==EOF) return;
@@ -154,6 +155,8 @@ void engadirCola(TLISTA* lista_impresoras){
             printf("\nIntroduce o id do traballo que queres engadir:\n");
             scanf("%d",&id);
             anadirElementoCola(&impresora_aux.cola_impresion, id);
+            printf("El tamaño de la cola es %d",tamanoCola(impresora_aux.cola_impresion));
+            fflush(stdout);
             return;
         }
         else{
@@ -168,17 +171,47 @@ void engadirCola(TLISTA* lista_impresoras){
 
 
 void imprimirCola(TCOLA* cola_impresion){
-    TCOLA aux;
-    crearCola(&aux);
-    aux = cola_impresion;
-    TIPOELEMENTOCOLA elemento_aux;
-
-    while (esColaVacia(*cola_impresion)==0){
+    for(int i=0;i<tamanoCola(*cola_impresion);i++){
+        TIPOELEMENTOCOLA elemento_aux;
         consultarPrimerElementoCola(*cola_impresion, &elemento_aux);
+        printf("El id del elemento %d es: %d\n", i+1, elemento_aux);
+        suprimirElementoCola(cola_impresion);
+        anadirElementoCola(cola_impresion, elemento_aux);
     }
 }
 
+void imprimirTraballosPendentes(TLISTA* lista_impresoras){
+    char nombre_impresora_aux[32];
+    TPOSICION posicion_impresora_aux;
+    TIPOELEMENTOLISTA impresora_aux;
+    TIPOELEMENTOCOLA id;
+    int check = 0;
+    posicion_impresora_aux = primeroLista(*lista_impresoras);
+    recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
+    printearLista(*lista_impresoras);
+    
+    printf("Introduce o nome da impresora a que se lle quere consultar a cola de impresión:\n");
+    scanf(" %s",nombre_impresora_aux);
+    
+    while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL) && (check == 0)){
+        recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
+        
+        // Se atopa a impresora:
+        if(strcmp(impresora_aux.nombre, nombre_impresora_aux) == 0){
+            check = 1;
+            imprimirCola(&impresora_aux.cola_impresion);
+            fflush(stdout);
+            return;
+        }
+        else{
+            posicion_impresora_aux = siguienteLista(lista_impresoras, posicion_impresora_aux);
+        }
+    }
+    // Non atopa a impresora
+    printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",posicion_impresora_aux);
+    sleep(2);
 
+}
 
 
 void mostrarAxuda(){

@@ -54,5 +54,12 @@ void suprimirElementoCola(TCOLA *q);
  */
 void anadirElementoCola(TCOLA *q, TIPOELEMENTOCOLA e);
 
+/**
+ * Devuelve el tamano de una cola[q], retornando el campo int.
+ *
+ * @param q cola de la que se da el tamano.
+ */
+int tamanoCola(TCOLA q);
+
 #endif    // COLA_H
 
