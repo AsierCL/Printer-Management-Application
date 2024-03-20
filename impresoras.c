@@ -41,7 +41,6 @@ void mostrarBarra(){
 }
 
 
-
 void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
 
     // Abro o arquivo
@@ -157,6 +156,7 @@ void eliminarImpresora(TLISTA* lista_impresoras){
     sleep(2);
 }
 
+
 void engadirImpresora(TLISTA* lista_impresoras){
     
     // Declaro as variables necesarias
@@ -170,7 +170,10 @@ void engadirImpresora(TLISTA* lista_impresoras){
         printf("\x1b[31mError: Los datos ingresados exceden el tamaño máximo permitido\x1b[0m\n");
         while (getchar() != '\n');
         return;
-    } //// REPASAR ESTE ERROR ////
+    } 
+                ////////////////////////////
+                //// REPASAR ESTE ERROR ////
+                ////////////////////////////
 
     insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
 
@@ -179,6 +182,7 @@ void engadirImpresora(TLISTA* lista_impresoras){
     printearLista(*lista_impresoras);
     sleep(2);
 }
+
 
 void engadirCola(TLISTA* lista_impresoras){
     
@@ -231,6 +235,7 @@ void imprimirCola(TCOLA* cola_impresion){
         anadirElementoCola(cola_impresion, elemento_aux);
     }
 }
+
 
 void listarTraballosPendentes(TLISTA* lista_impresoras){
     
@@ -311,6 +316,46 @@ void eliminarCola(TLISTA* lista_impresoras){
     // Non atopa a impresora
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",impresora_modificada);
     sleep(2);
+}
+
+void listarImpresorasMenosCarga(TLISTA* lista_impresoras){
+    // Declaro as variables necesarias
+    int tamano_min;
+    int num_impresoras_tamano_minimo = 0;
+    TPOSICION posicion_impresora_aux;
+    TIPOELEMENTOLISTA impresora_aux;
+    posicion_impresora_aux = primeroLista(*lista_impresoras);
+    recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
+    tamano_min = tamanoCola(impresora_aux.cola_impresion);
+
+
+    while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL)){
+        recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
+        
+        if(tamanoCola(impresora_aux.cola_impresion) == tamano_min){
+            num_impresoras_tamano_minimo++;
+        }
+        if(tamanoCola(impresora_aux.cola_impresion) < tamano_min){
+            num_impresoras_tamano_minimo = 0;
+            tamano_min = tamanoCola(impresora_aux.cola_impresion);
+        }
+        
+        posicion_impresora_aux = siguienteLista(lista_impresoras, posicion_impresora_aux);
+    }
+    printf("\nHai %d impresoras con carga minima\n",num_impresoras_tamano_minimo);
+
+    posicion_impresora_aux = primeroLista(*lista_impresoras); // Rewind ao principio
+    while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL)){
+        recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
+        
+        if(tamanoCola(impresora_aux.cola_impresion) == tamano_min){
+            printf("%s\n",impresora_aux.nombre);
+        }
+        
+        posicion_impresora_aux = siguienteLista(lista_impresoras, posicion_impresora_aux);
+    }
+    fflush(stdout);
+    sleep(4);
 }
 
 

@@ -41,7 +41,7 @@ int main(int argc, char** argv){
         printf("\n--------------------------------------------------------------\n");
         printf("\na) Eliminar impresora     d) Traballos pendentes\n");
         printf("\nb) Engadir impresora      e) Imprimir traballo\n");
-        printf("\nc) Enviar traballo        f) Buscar impresoras con pouca carga\n ");
+        printf("\nc) Enviar traballo        f) Impresoras con pouca carga\n ");
         printf("\n");
         printf("\ng) Axuda                  s) Sair\n");
         printf("\n--------------------------------------------------------------\n");
@@ -54,7 +54,7 @@ int main(int argc, char** argv){
                 system("clear");
                 printf("-------------------------");
                 printf("\n| a) Eliminar impresora |\n");
-                printf("-------------------------");
+                printf("-------------------------\n");
                 eliminarImpresora(&lista_impresoras);
                 system("clear");
                 break;
@@ -96,7 +96,12 @@ int main(int argc, char** argv){
                 break;
 
             case 'f':
-
+                system("clear");
+                printf("---------------------------------");
+                printf("\n| f) Impresoras con pouca carga |\n");
+                printf("---------------------------------\n");
+                listarImpresorasMenosCarga(&lista_impresoras);
+                system("clear");
                 break;
 
             case 'g':
