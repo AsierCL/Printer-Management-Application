@@ -193,7 +193,7 @@ void imprimirCola(TCOLA* cola_impresion){
     }
 }
 
-void imprimirTraballosPendentes(TLISTA* lista_impresoras){
+void listarTraballosPendentes(TLISTA* lista_impresoras){
     
     // Declaro as variables necesarias
     char nombre_impresora_aux[32];
@@ -202,9 +202,12 @@ void imprimirTraballosPendentes(TLISTA* lista_impresoras){
     int check = 0;
     posicion_impresora_aux = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
+    
+    printf("A lista de impresoras:\n\n");
+    sleep(1);
     printearLista(*lista_impresoras);
     
-    printf("Introduce o nome da impresora a que se lle quere consultar a cola de impresión:\n");
+    printf("\nIntroduce o nome da impresora a que se lle quere consultar a cola de impresión:\n");
     scanf(" %s",nombre_impresora_aux);
     
     while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL) && (check == 0)){
@@ -226,6 +229,53 @@ void imprimirTraballosPendentes(TLISTA* lista_impresoras){
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",posicion_impresora_aux);
     sleep(2);
 }
+
+
+void eliminarCola(TLISTA* lista_impresoras){
+    
+    // Declaro as variables necesarias
+    char impresora_modificada[32];
+    TPOSICION posicion_impresora_modificada;
+    TIPOELEMENTOLISTA impresora_aux;
+    posicion_impresora_modificada = primeroLista(*lista_impresoras);
+    recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
+
+    // Salida por terminal
+    printearLista(*lista_impresoras);
+    printf("Introduce o nome da impresora na que se quere imprimir un traballo:\n");
+    scanf(" %s",impresora_modificada);
+
+    // Comprobo unha por unha que coincida
+    while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL)){
+        recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
+        
+        // Se atopa a impresora:
+        if(strcmp(impresora_aux.nombre, impresora_modificada) == 0){
+            TIPOELEMENTOCOLA telementocola_aux = NULL;
+            consultarPrimerElementoCola(impresora_aux.cola_impresion, &telementocola_aux);
+            
+            if (telementocola_aux==NULL){
+                printf("\x1b[31mNon hai ningún elemento para imprimir\x1b[0m\n");
+                sleep(2);
+                return;
+            }
+            printf("Imprimindo o arquivo %d\n", telementocola_aux);
+            suprimirElementoCola(&impresora_aux.cola_impresion);
+            printf("Cola de impresion actualizada");
+            imprimirCola(&impresora_aux.cola_impresion);
+            sleep(2);
+            return;
+        }
+        else{
+            posicion_impresora_modificada = siguienteLista(lista_impresoras, posicion_impresora_modificada);
+        }
+    }
+
+    // Non atopa a impresora
+    printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",impresora_modificada);
+    sleep(2);
+}
+
 
 // Menu de axuda
 void mostrarAxuda(){

@@ -14,7 +14,8 @@ void eliminarImpresora(TLISTA* lista_impresoras);
 void engadirImpresora(TLISTA* lista_impresoras);
 void engadirCola(TLISTA* lista_impresoras);
 void imprimirCola(TCOLA* cola_impresion);
-void imprimirTraballosPendentes(TLISTA* lista_impresoras);
+void listarTraballosPendentes(TLISTA* lista_impresoras);
+void eliminarCola(TLISTA* lista_impresoras);
 void mostrarAxuda();
 
 #endif /// IMPRESORAS_H

@@ -81,17 +81,20 @@ int main(int argc, char** argv){
                 printf("--------------------------");
                 printf("\n| d) Traballos pendentes |\n");
                 printf("--------------------------\n");
-                imprimirTraballosPendentes(&lista_impresoras);
+                listarTraballosPendentes(&lista_impresoras);
                 system("clear");
                 break;
 
             case 'e':
-
-
+                system("clear");
+                printf("------------------------");
+                printf("\n| e) Imprimir traballo |\n");
+                printf("------------------------\n");
+                eliminarCola(&lista_impresoras);
+                system("clear");
                 break;
 
             case 'f':
-
 
                 break;
 
