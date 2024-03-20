@@ -1,6 +1,6 @@
 #ifndef IMPRESORAS_H
 #define IMPRESORAS_H
-#include "estructura.h"
+#include "./estructura.h"
 
 void mostrarBarra();
 void barraDeProgreso(int porcentaje);

@@ -1,6 +1,6 @@
 #ifndef LISTA_H
 #define LISTA_H
-#include "estructura.h"
+#include "../TADImpresoras/estructura.h"
 
 /** Definicion del tipo de elemento almacenado en la lista **/
 typedef Impresora TIPOELEMENTOLISTA;

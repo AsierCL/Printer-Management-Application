@@ -3,9 +3,9 @@
 #include <string.h>
 #include <unistd.h> // Para a función sleep
 
-#include "cola.h"
-#include "lista.h"
-#include "estructura.h"
+#include "../TADs/cola.h"
+#include "../TADs/lista.h"
+#include "./estructura.h"
 
 
     /* Secuencias de escape ANSI:

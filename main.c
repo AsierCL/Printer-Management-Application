@@ -4,9 +4,9 @@
 #include <math.h>
 #include <unistd.h>
 
-#include "lista.h"
-#include "cola.h"
-#include "impresoras.h"
+#include "TADs/lista.h"
+#include "TADs/cola.h"
+#include "TADImpresoras/impresoras.h"
 
 //////////////////////////////////////////////
 //  Funcións en camelCase: funcionCrear     //

@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "estructura.h"
+#include "../TADImpresoras/estructura.h"
 ///////////////////////////////////////////////////
 
 typedef Impresora TIPOELEMENTOLISTA;

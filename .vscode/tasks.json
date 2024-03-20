@@ -8,6 +8,8 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${fileDirname}/*.c",
+                "${fileDirname}/TADs/*.c",
+                "${fileDirname}/TADImpresoras/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-lm"
