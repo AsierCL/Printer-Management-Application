@@ -130,7 +130,7 @@ void eliminarImpresora(TLISTA* lista_impresoras){
     recuperarElementoLista(lista_impresoras, posicion_eliminar, &impresora_aux);
 
     // Salida por pantalla
-    printf("\n\nEscriba a impresora que queere eliminar:\n");
+    printf("\n\nEscriba a impresora que quere eliminar:\n");
     printf("(Únicamente escriba o nome (primera columna))\n\n");
     printearLista(*lista_impresoras);
     printf("\n");
@@ -142,6 +142,7 @@ void eliminarImpresora(TLISTA* lista_impresoras){
         
         if(strcmp(impresora_aux.nombre, impresora_eliminar) == 0){
             printf("\x1b[32mImpresora eliminada:\n%s %s %s %s\x1b[0m\n", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+            destruirCola(&impresora_aux.cola_impresion);
             suprimirElementoLista(lista_impresoras, posicion_eliminar);
             sleep(2);
             return;
@@ -177,10 +178,10 @@ void engadirImpresora(TLISTA* lista_impresoras){
 
     insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
 
-    printf("\x1b[32mEngadeuse con éxito a impresora %s\x1b[0m\n",impresora_aux.nombre);
+    printf("\x1b[32m\nEngadeuse con éxito a impresora %s\x1b[0m\n",impresora_aux.nombre);
     printf("\nLista actualizada:\n");
     printearLista(*lista_impresoras);
-    sleep(2);
+    sleep(4);
 }
 
 
@@ -196,7 +197,7 @@ void engadirCola(TLISTA* lista_impresoras){
 
     // Salida por terminal
     printearLista(*lista_impresoras);
-    printf("Introduce o nome da impresora a que se lle quere engadir traballo:\n");
+    printf("\nIntroduce o nome da impresora a que se lle quere engadir traballo:\n");
     scanf(" %s",impresora_modificada);
 
     // Comprobo unha por unha que coincida
@@ -224,7 +225,7 @@ void engadirCola(TLISTA* lista_impresoras){
 
 void imprimirCola(TCOLA* cola_impresion){
     if (tamanoCola(*cola_impresion)==0){
-        printf("\nNon hai traballos pendentes\n");
+        printf("\x1b[31m\nNon hai traballos pendentes\x1b[0m\n");
     }
     
     for(int i=0;i<tamanoCola(*cola_impresion);i++){
@@ -246,8 +247,7 @@ void listarTraballosPendentes(TLISTA* lista_impresoras){
     posicion_impresora_aux = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
     
-    printf("A lista de impresoras:\n\n");
-    sleep(1);
+    printf("\nLista de impresoras:\n");
     printearLista(*lista_impresoras);
     
     printf("\nIntroduce o nome da impresora a que se lle quere consultar a cola de impresión:\n");
@@ -260,7 +260,7 @@ void listarTraballosPendentes(TLISTA* lista_impresoras){
         if(strcmp(impresora_aux.nombre, nombre_impresora_aux) == 0){
             imprimirCola(&impresora_aux.cola_impresion);
             fflush(stdout);
-            sleep(2);
+            sleep(4);
             return;
         }
         else{
@@ -268,7 +268,7 @@ void listarTraballosPendentes(TLISTA* lista_impresoras){
         }
     }
     // Non atopa a impresora
-    printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",posicion_impresora_aux);
+    printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",nombre_impresora_aux);
     sleep(2);
 }
 
@@ -294,10 +294,17 @@ void eliminarCola(TLISTA* lista_impresoras){
         // Se atopa a impresora:
         if(strcmp(impresora_aux.nombre, impresora_modificada) == 0){
             TIPOELEMENTOCOLA telementocola_aux = NULL;
+            
+            if (esColaVacia(impresora_aux.cola_impresion)){
+                printf("\x1b[31m\nNon hai ningún elemento para imprimir\x1b[0m\n");
+                sleep(2);
+                return;
+            }
+
             consultarPrimerElementoCola(impresora_aux.cola_impresion, &telementocola_aux);
             
             if (telementocola_aux==NULL){
-                printf("\x1b[31mNon hai ningún elemento para imprimir\x1b[0m\n");
+                printf("\x1b[31m\nNon hai ningún elemento para imprimir\x1b[0m\n");
                 sleep(2);
                 return;
             }
@@ -355,7 +362,7 @@ void listarImpresorasMenosCarga(TLISTA* lista_impresoras){
         posicion_impresora_aux = siguienteLista(lista_impresoras, posicion_impresora_aux);
     }
     fflush(stdout);
-    sleep(4);
+    sleep(5);
 }
 
 
@@ -368,7 +375,7 @@ void mostrarAxuda(){
     printf("\ne) Imprimir traballo: Imprime un traballo dunha impresora específica.\n");
     printf("\nf) Buscar impresoras con pouca carga: Amosa as impresoras con baixa carga de traballo.\n");
     printf("\ng) Axuda: Amosa este menú de axuda.\n");
-    printf("\ns) Sair: Sai do programa.\n");
+    printf("\ns) Sair: Sae do programa.\n");
     printf("\n (Enter para sair)\n");
     printf("\n--------------------------------------------------------------\n");
     getchar();

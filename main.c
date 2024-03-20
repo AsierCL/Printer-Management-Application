@@ -61,9 +61,9 @@ int main(int argc, char** argv){
 
             case 'b':
                 system("clear");
-                printf("-----------------------");
+                printf("------------------------");
                 printf("\n| b) Engadir impresora |\n");
-                printf("-----------------------\n");
+                printf("------------------------\n");
                 engadirImpresora(&lista_impresoras);
                 system("clear");
                 break;
