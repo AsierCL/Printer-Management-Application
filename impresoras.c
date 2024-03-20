@@ -46,16 +46,31 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
 
     // Abro o arquivo
     FILE *arquivo_impresoras = fopen(nombre_arquivo, "r");
-    
+    if (arquivo_impresoras == NULL){
+        perror("\x1b[31mErro ao abrir o arquivo de impresoras\x1b[0m\n");
+        exit(1);
+    }
+
     // Fago un bucle infinito, e pároo cando no fscanf se chegue a EOF
     while(1){
         TIPOELEMENTOLISTA impresora_aux;
         crearCola(&impresora_aux.cola_impresion);
         int i = 0;
         i = fscanf(arquivo_impresoras, "%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
-        if (i==EOF) return;
+        
+        if (i==EOF) {
+            return;
+        }
+
+        if (i != 4) {
+            // Non atopou os 4 campos
+            printf("\x1b[31mErro ao leer o arquivo %s\x1b[0m\n", nombre_arquivo);
+            exit(1);
+        }
         insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
     }
+
+    fclose(arquivo_impresoras);
 }
 
 
@@ -63,19 +78,34 @@ void escribirArquivo(char* nombre_arquivo, TLISTA* lista_impresoras){
     
     // Abro o arquivo
     FILE *arquivo_impresoras = fopen(nombre_arquivo, "w");
+        if (arquivo_impresoras == NULL){
+        perror("\x1b[31mErro ao abrir o arquivo para gardar os datos\x1b[0m\n");
+        exit(1);
+    }
+
+    // Declaro as variables necesarias
     TPOSICION posicion_aux = primeroLista(lista_impresoras);
 
     while (siguienteLista(lista_impresoras, posicion_aux) != NULL){
         TIPOELEMENTOLISTA impresora_aux;
         recuperarElementoLista(lista_impresoras, posicion_aux, &impresora_aux);
-        fprintf(arquivo_impresoras,"%s %s %s %s\n", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+        
+        if (fprintf(arquivo_impresoras, "%s %s %s %s\n", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion) < 0) {
+            printf("\x1b[31mErro ao leer o arquivo %s\x1b[0m\n", nombre_arquivo);
+            // Toma medidas adicionales según sea necesario, como cerrar el archivo y finalizar la ejecución
+        }
+
         posicion_aux = siguienteLista(lista_impresoras, posicion_aux);
     }
+
+    fclose(arquivo_impresoras);
 }
 
 
 void printearLista(TLISTA lista_impresoras){
     // Empezo dende o primeiro elemento, e vou printeando e pasando ao seguinte ca función do TAD ata que chegue a NULL
+    
+    // Declaro as variables necesarias
     TPOSICION posicion_aux = primeroLista(lista_impresoras);
     while (siguienteLista(lista_impresoras, posicion_aux) != NULL){
         TIPOELEMENTOLISTA impresora_aux;
@@ -90,11 +120,15 @@ void eliminarImpresora(TLISTA* lista_impresoras){
     
     // Declaro as variables necesarias
     char impresora_eliminar[32];
-    TPOSICION posicion_elimiar;
+    TPOSICION posicion_eliminar;
     TIPOELEMENTOLISTA impresora_aux;
-    int check = 0;
-    posicion_elimiar = primeroLista(*lista_impresoras);
-    recuperarElementoLista(lista_impresoras, posicion_elimiar, &impresora_aux);
+    posicion_eliminar = primeroLista(*lista_impresoras);
+    if(posicion_eliminar==NULL){
+        perror("\x1b[31mErro ao eliminar impresoras\nErro na lista\x1b[0m\n");
+        return;
+    }
+
+    recuperarElementoLista(lista_impresoras, posicion_eliminar, &impresora_aux);
 
     // Salida por pantalla
     printf("\n\nEscriba a impresora que queere eliminar:\n");
@@ -104,22 +138,21 @@ void eliminarImpresora(TLISTA* lista_impresoras){
     scanf(" %s",impresora_eliminar);
 
 
-    while ((siguienteLista(lista_impresoras, posicion_elimiar) != NULL) && (check == 0)){
-        recuperarElementoLista(lista_impresoras, posicion_elimiar, &impresora_aux);
+    while ((siguienteLista(lista_impresoras, posicion_eliminar) != NULL)){
+        recuperarElementoLista(lista_impresoras, posicion_eliminar, &impresora_aux);
         
         if(strcmp(impresora_aux.nombre, impresora_eliminar) == 0){
-            check = 1;
             printf("\x1b[32mImpresora eliminada:\n%s %s %s %s\x1b[0m\n", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
-            suprimirElementoLista(lista_impresoras, posicion_elimiar);
+            suprimirElementoLista(lista_impresoras, posicion_eliminar);
             sleep(2);
             return;
         }
         else{
-            posicion_elimiar = siguienteLista(lista_impresoras, posicion_elimiar);
+            posicion_eliminar = siguienteLista(lista_impresoras, posicion_eliminar);
         }
     }
 
-    // Caso error
+    // Caso erro
     printf("\x1b[31mNon se atopou a impresora %s\x1b[0m\n",impresora_eliminar);
     sleep(2);
 }
@@ -129,11 +162,19 @@ void engadirImpresora(TLISTA* lista_impresoras){
     // Declaro as variables necesarias
     TIPOELEMENTOLISTA impresora_aux;
     crearCola(&impresora_aux.cola_impresion);
+    int i = 0;
     
     printf("Introduce a nova impresora (nombre|marca|modelo|ubicación):\n");
-    scanf("%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+
+    if (scanf("%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion) != 4) {
+        printf("\x1b[31mError: Los datos ingresados exceden el tamaño máximo permitido\x1b[0m\n");
+        while (getchar() != '\n');
+        return;
+    } //// REPASAR ESTE ERROR ////
+
     insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
 
+    printf("\x1b[32mEngadeuse con éxito a impresora %s\x1b[0m\n",impresora_aux.nombre);
     printf("\nLista actualizada:\n");
     printearLista(*lista_impresoras);
     sleep(2);
@@ -146,7 +187,6 @@ void engadirCola(TLISTA* lista_impresoras){
     TPOSICION posicion_impresora_modificada;
     TIPOELEMENTOLISTA impresora_aux;
     TIPOELEMENTOCOLA id;
-    int check = 0;
     posicion_impresora_modificada = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
 
@@ -156,12 +196,11 @@ void engadirCola(TLISTA* lista_impresoras){
     scanf(" %s",impresora_modificada);
 
     // Comprobo unha por unha que coincida
-    while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL) && (check == 0)){
+    while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL)){
         recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
         
         // Se atopa a impresora:
         if(strcmp(impresora_aux.nombre, impresora_modificada) == 0){
-            check = 1;
             printf("\nIntroduce o id do traballo que queres engadir:\n");
             scanf("%d",&id);
             anadirElementoCola(&impresora_aux.cola_impresion, id);
@@ -199,7 +238,6 @@ void listarTraballosPendentes(TLISTA* lista_impresoras){
     char nombre_impresora_aux[32];
     TPOSICION posicion_impresora_aux;
     TIPOELEMENTOLISTA impresora_aux;
-    int check = 0;
     posicion_impresora_aux = primeroLista(*lista_impresoras);
     recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
     
@@ -210,12 +248,11 @@ void listarTraballosPendentes(TLISTA* lista_impresoras){
     printf("\nIntroduce o nome da impresora a que se lle quere consultar a cola de impresión:\n");
     scanf(" %s",nombre_impresora_aux);
     
-    while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL) && (check == 0)){
+    while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL)){
         recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
         
         // Se atopa a impresora:
         if(strcmp(impresora_aux.nombre, nombre_impresora_aux) == 0){
-            check = 1;
             imprimirCola(&impresora_aux.cola_impresion);
             fflush(stdout);
             sleep(2);

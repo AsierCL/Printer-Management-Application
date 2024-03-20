@@ -37,6 +37,7 @@ int main(int argc, char** argv){
 
     // BUCLE PARA A INTERFAZ GRÁFICA //
     do{
+        system("clear");
         printf("\n--------------------------------------------------------------\n");
         printf("\na) Eliminar impresora     d) Traballos pendentes\n");
         printf("\nb) Engadir impresora      e) Imprimir traballo\n");
@@ -115,8 +116,10 @@ int main(int argc, char** argv){
 
             default:
                 printf("\n A opción é incorrecta \n");
+                sleep(2);
                 break;
         }
+        while (getchar() != '\n');
     } while (opcion != 's');
     return(EXIT_SUCCESS);
 }
