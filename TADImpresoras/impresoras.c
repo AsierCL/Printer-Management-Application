@@ -161,24 +161,46 @@ void eliminarImpresora(TLISTA* lista_impresoras){
 void engadirImpresora(TLISTA* lista_impresoras){
     
     // Declaro as variables necesarias
-    TIPOELEMENTOLISTA impresora_aux;
-    crearCola(&impresora_aux.cola_impresion);
+    TIPOELEMENTOLISTA impresora_insertar;
+    crearCola(&impresora_insertar.cola_impresion);
     int i = 0;
-    
+
+    // Declaro as variables necesarias para o check do nombre repetido
+    TPOSICION posicion_impresora_modificada;
+    TIPOELEMENTOLISTA impresora_aux;
+    posicion_impresora_modificada = primeroLista(*lista_impresoras);
+    recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
+
+
     printf("Introduce a nova impresora (nombre|marca|modelo|ubicación):\n");
 
-    if (scanf("%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion) != 4) {
+    if (scanf("%s %s %s %s", impresora_insertar.nombre, impresora_insertar.marca, impresora_insertar.modelo, impresora_insertar.ubicacion) != 4) {
         printf("\x1b[31mError: Los datos ingresados exceden el tamaño máximo permitido\x1b[0m\n");
         while (getchar() != '\n');
         return;
-    } 
-                ////////////////////////////
+    }           ////////////////////////////
                 //// REPASAR ESTE ERROR ////
                 ////////////////////////////
 
-    insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
 
-    printf("\x1b[32m\nEngadeuse con éxito a impresora %s\x1b[0m\n",impresora_aux.nombre);
+    while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL)){
+        recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
+        
+        // Se atopa a impresora:
+        if(strcmp(impresora_aux.nombre, impresora_insertar.nombre) == 0){
+            printf("\x1b[31mXa existe unha impresora con ese nome\x1b[0m\n");
+            sleep(4);
+            return;
+        }
+        else{
+            posicion_impresora_modificada = siguienteLista(lista_impresoras, posicion_impresora_modificada);
+        }
+    }
+
+
+    insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_insertar);
+
+    printf("\x1b[32m\nEngadeuse con éxito a impresora %s\x1b[0m\n",impresora_insertar.nombre);
     printf("\nLista actualizada:\n");
     printearLista(*lista_impresoras);
     sleep(4);
