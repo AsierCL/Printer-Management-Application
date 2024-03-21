@@ -52,10 +52,17 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
 
     // Fago un bucle infinito, e pároo cando no fscanf se chegue a EOF
     while(1){
-        TIPOELEMENTOLISTA impresora_aux;
-        crearCola(&impresora_aux.cola_impresion);
+        // Declaro as variables necesarias para insertar a impresora
+        TIPOELEMENTOLISTA impresora_insertar;
+        crearCola(&impresora_insertar.cola_impresion);
         int i = 0;
-        i = fscanf(arquivo_impresoras, "%s %s %s %s", impresora_aux.nombre, impresora_aux.marca, impresora_aux.modelo, impresora_aux.ubicacion);
+
+        // Declaro as variables para comprobar que non hai impresoras repetidas
+        TPOSICION posicion_aux;
+        TIPOELEMENTOLISTA impresora_aux;
+        
+        
+        i = fscanf(arquivo_impresoras, "%s %s %s %s", impresora_insertar.nombre, impresora_insertar.marca, impresora_insertar.modelo, impresora_insertar.ubicacion);
         
         if (i==EOF) {
             return;
@@ -66,7 +73,23 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
             printf("\x1b[31mErro ao leer o arquivo %s\x1b[0m\n", nombre_arquivo);
             exit(1);
         }
-        insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_aux);
+
+        posicion_aux = primeroLista(*lista_impresoras);
+        while ((siguienteLista(*lista_impresoras, posicion_aux) != NULL)){
+            recuperarElementoLista(*lista_impresoras, posicion_aux, &impresora_aux);
+            
+            // Se atopa a impresora:
+            if(strcmp(impresora_aux.nombre, impresora_insertar.nombre) == 0){
+                printf("\x1b[31m\n\nO arquivo ten duas impresoras co mesmo nome\x1b[0m\n");
+                printf("\x1b[31m\nNome repetido: %s\x1b[0m\n", impresora_aux.nombre);
+                sleep(4);
+                exit(1);
+            }
+            else{
+                posicion_aux = siguienteLista(*lista_impresoras, posicion_aux);
+            }
+        }
+        insertarElementoLista(lista_impresoras, finLista(*lista_impresoras), impresora_insertar);
     }
 
     fclose(arquivo_impresoras);
