@@ -109,18 +109,18 @@ int main(int argc, char** argv){
                 printf("------------");
                 printf("\n| g) Axuda |\n");
                 printf("------------\n");
-                mostrarAxuda();
+                amosarAxuda();
                 break;
 
             case 's':
                 printf("Gardando os datos...\n");
                 escribirArquivo(argv[1], lista_impresoras);
                 mostrarBarra();
-                printf("\nSalindo do programa...\n");
+                printf("\nSaíndo do programa...\n");
                 break;
 
             default:
-                printf("\n A opción é incorrecta \n");
+                printf("\x1b[31m\nOpción incorrecta\x1b[0m\n");
                 sleep(2);
                 break;
         }

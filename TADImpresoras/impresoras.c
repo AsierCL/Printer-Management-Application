@@ -412,7 +412,7 @@ void listarImpresorasMenosCarga(TLISTA* lista_impresoras){
 
 
 // Menu de axuda
-void mostrarAxuda(){
+void amosarAxuda(){
     printf("\na) Eliminar impresora: Elimina unha impresora da lista de impresoras dispoñibles.\n");
     printf("\nb) Engadir impresora: Engade unha impresora á lista de impresoras dispoñibles.\n");
     printf("\nc) Enviar traballo: Envia un traballo de impresión a unha impresora específica.\n");
