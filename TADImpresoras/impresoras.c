@@ -61,8 +61,7 @@ void leerArquivo(char* nombre_arquivo, TLISTA* lista_impresoras) {
         TPOSICION posicion_aux;
         TIPOELEMENTOLISTA impresora_aux;
         
-        
-        i = fscanf(arquivo_impresoras, "%s %s %s %s", impresora_insertar.nombre, impresora_insertar.marca, impresora_insertar.modelo, impresora_insertar.ubicacion);
+        i = fscanf(arquivo_impresoras, "%31s %31s %31s %31s", impresora_insertar.nombre, impresora_insertar.marca, impresora_insertar.modelo, impresora_insertar.ubicacion);
         
         if (i==EOF) {
             return;
@@ -157,7 +156,7 @@ void eliminarImpresora(TLISTA* lista_impresoras){
     printf("(Únicamente escriba o nome (primera columna))\n\n");
     printearLista(*lista_impresoras);
     printf("\n");
-    scanf(" %s",impresora_eliminar);
+    scanf(" %31s",impresora_eliminar);
 
 
     while ((siguienteLista(lista_impresoras, posicion_eliminar) != NULL)){
@@ -197,14 +196,11 @@ void engadirImpresora(TLISTA* lista_impresoras){
 
     printf("Introduce a nova impresora (nombre|marca|modelo|ubicación):\n");
 
-    if (scanf("%s %s %s %s", impresora_insertar.nombre, impresora_insertar.marca, impresora_insertar.modelo, impresora_insertar.ubicacion) != 4) {
+    if (scanf("%31s %31s %31s %31s", impresora_insertar.nombre, impresora_insertar.marca, impresora_insertar.modelo, impresora_insertar.ubicacion) != 4) {
         printf("\x1b[31mError: Los datos ingresados exceden el tamaño máximo permitido\x1b[0m\n");
         while (getchar() != '\n');
         return;
-    }           ////////////////////////////
-                //// REPASAR ESTE ERROR ////
-                ////////////////////////////
-
+    }
 
     while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL)){
         recuperarElementoLista(lista_impresoras, posicion_impresora_modificada, &impresora_aux);
@@ -243,7 +239,7 @@ void engadirCola(TLISTA* lista_impresoras){
     // Salida por terminal
     printearLista(*lista_impresoras);
     printf("\nIntroduce o nome da impresora a que se lle quere engadir traballo:\n");
-    scanf(" %s",impresora_modificada);
+    scanf(" %31s",impresora_modificada);
 
     // Comprobo unha por unha que coincida
     while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL)){
@@ -296,7 +292,7 @@ void listarTraballosPendentes(TLISTA* lista_impresoras){
     printearLista(*lista_impresoras);
     
     printf("\nIntroduce o nome da impresora a que se lle quere consultar a cola de impresión:\n");
-    scanf(" %s",nombre_impresora_aux);
+    scanf(" %31s",nombre_impresora_aux);
     
     while ((siguienteLista(lista_impresoras, posicion_impresora_aux) != NULL)){
         recuperarElementoLista(lista_impresoras, posicion_impresora_aux, &impresora_aux);
@@ -330,7 +326,7 @@ void eliminarCola(TLISTA* lista_impresoras){
     // Salida por terminal
     printearLista(*lista_impresoras);
     printf("Introduce o nome da impresora na que se quere imprimir un traballo:\n");
-    scanf(" %s",impresora_modificada);
+    scanf(" %31s",impresora_modificada);
 
     // Comprobo unha por unha que coincida
     while ((siguienteLista(lista_impresoras, posicion_impresora_modificada) != NULL)){
