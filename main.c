@@ -20,10 +20,9 @@
 ////////////////////
 
 int main(int argc, char** argv){
-    
     // Gestión de error en caso de non incluir un archivo txt de impresoras.
     if (argc!=2){
-        printf("\nDebes indicar un archivo de impresoras\n");
+        printf("\x1b[31m\nDebes indicar un archivo de impresoras\x1b[0m\n");
         printf("\nEjemplo de uso: ./programa archivo.txt\n");
         printf("\nSalindo...\n");
         exit(1);
@@ -48,7 +47,7 @@ int main(int argc, char** argv){
         printf("\nOpción: ");
         scanf(" %c", &opcion);
         
-        
+        // Entramos no switch
         switch (opcion) {
             case 'a': 
                 system("clear");
@@ -116,6 +115,7 @@ int main(int argc, char** argv){
                 printf("Gardando os datos...\n");
                 escribirArquivo(argv[1], lista_impresoras);
                 mostrarBarra();
+                free(lista_impresoras);
                 printf("\nSaíndo do programa...\n");
                 break;
 
