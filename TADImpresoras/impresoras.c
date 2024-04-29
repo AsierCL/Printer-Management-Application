@@ -3,8 +3,8 @@
 #include <string.h>
 #include <unistd.h> // Para a función sleep
 
-#include "../TADs/cola.h"
-#include "../TADs/lista.h"
+#include "../ADTs/queue.h"
+#include "../ADTs/list.h"
 #include "./estructura.h"
 
 

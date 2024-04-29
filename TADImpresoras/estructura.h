@@ -1,7 +1,7 @@
 #ifndef ESTRUCTURA_H
 #define ESTRUCTURA_H
 
-#include "../TADs/cola.h"
+#include "../ADTs/queue.h"
 
 typedef struct {
     char nombre[32];

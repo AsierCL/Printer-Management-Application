@@ -1,5 +1,5 @@
-#ifndef COLA_H
-#define COLA_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 
 /** Definicion del tipo de elemento almacenado en la cola **/
@@ -61,5 +61,5 @@ void anadirElementoCola(TCOLA *q, TIPOELEMENTOCOLA e);
  */
 int tamanoCola(TCOLA q);
 
-#endif    // COLA_H
+#endif    // QUEUE_H
 

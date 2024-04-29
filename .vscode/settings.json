@@ -6,7 +6,8 @@
         "impresoras.h": "c",
         "lista.h": "c",
         "impresoras_tipos.h": "c",
-        "cola.h": "c"
+        "cola.h": "c",
+        "stdbool.h": "c"
     },
     "oneDarkPro.vivid": false
 }

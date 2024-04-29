@@ -4,8 +4,8 @@
 #include <math.h>
 #include <unistd.h>
 
-#include "TADs/lista.h"
-#include "TADs/cola.h"
+#include "./ADTs/list.h"
+#include "./ADTs/queue.h"
 #include "TADImpresoras/impresoras.h"
 
 //////////////////////////////////////////////

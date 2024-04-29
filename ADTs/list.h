@@ -1,5 +1,5 @@
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef LIST_H
+#define LIST_H
 #include "../TADImpresoras/estructura.h"
 
 /** Definicion del tipo de elemento almacenado en la lista **/
@@ -102,4 +102,4 @@ void suprimirElementoLista(TLISTA *l, TPOSICION p);
  */
 void modificarElementoLista(TLISTA *l, TPOSICION p, TIPOELEMENTOLISTA e);
 
-#endif    // LISTA_H
+#endif    // LIST_H
